@@ -1,0 +1,12 @@
+<button onclick="window.location.href='model.php?export=1'">Exportar CSV</button>
+<button type="button" onclick=ConfirmMessage()>Resetear Procesados a 1</button>
+
+<script>
+
+function ConfirmMessage() {
+    if (confirm('Esta acción se debe hacer solo si desea imprimir desde CERO los CSV')) { // Clic sur OK
+       document.location.href="model.php?reset=1";
+    }
+
+}
+</script>
