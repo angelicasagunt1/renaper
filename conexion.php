@@ -3,13 +3,7 @@
 # Clase conexion: permite conectar a la base de datos y ejecutar consultas sql
 
 class Conexion {
-/*
-private $mysqli = '';
-private $usuario = 'root';
-private $clave = '';
-private $server = 'localhost';
-private $db = 'envios';
- */
+
 	# Atributos de la clase conexion
 
 	private $mysqli = '';

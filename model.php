@@ -12,7 +12,7 @@ class Punica extends Conexion{
         
         $result = parent::query($sql);
 
-        $headers = [
+        $headers = array(
             'idpersona',
             'nrodni',
             'apellido',
@@ -21,7 +21,7 @@ class Punica extends Conexion{
             'fechanac',
             'fallecido',
             'procesado'
-        ];
+        );
 
         $movimientos = parent::consultarTodos($sql);
         $ids_procesados = "";
