@@ -44,8 +44,15 @@ class Conexion {
 		
 	}
 
-	public function consultarTodos($consulta){
-		return mysqli_fetch_all($this->mysqli->query($consulta),MYSQLI_NUM);
+	# Funcion que retorna un arreglo con todos los registros de una consulta
+	public function consultarTodos($result){
+		$rows = array();
+		
+		while($row=mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			array_push($rows, $row);
+		}
+		return $rows;
 	}
 
 	# Function que permite cerrar una conexion de MySQL

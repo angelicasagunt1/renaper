@@ -1,5 +1,5 @@
 <?php
-include('conexion.php');
+include('conexionAngelica.php');
 
 class Punica extends Conexion{
     
@@ -8,7 +8,7 @@ class Punica extends Conexion{
         parent::conectar();
     
         $sql = "SELECT idpersona,nrodni,apellido,nombres,sexo,fechanac,fallecido, procesado 
-                FROM punica_2009,personas_2008 WHERE punica_2009.idpersona=personas_2008.ID_PERSONA AND procesado = 1 LIMIT 50000";
+                FROM punica_2009,personas_2008 WHERE punica_2009.idpersona=personas_2008.ID_PERSONA AND procesado = 1 GROUP BY idpersona LIMIT 50000";
         
         $result = parent::query($sql);
 
@@ -23,7 +23,7 @@ class Punica extends Conexion{
             'procesado'
         );
 
-        $movimientos = parent::consultarTodos($sql);
+        $movimientos = parent::consultarTodos($result);
         $ids_procesados = "";
         $export = (isset($_GET['export'])) ? $_GET['export'] : "" ;
         $reset =  (isset($_GET['reset']))  ? $_GET['reset']  : "" ;
@@ -42,7 +42,9 @@ class Punica extends Conexion{
                 $ids_procesados.=$movimientos[$i]['0'].",";
             }
             fclose($fp);
+    
         }
+
         if (!empty($ids_procesados)){
             $ids_procesados = preg_replace("~,$~", "", $ids_procesados);
 
