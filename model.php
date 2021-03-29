@@ -56,12 +56,15 @@ class Punica extends Conexion{
         if(empty($ids_procesados) && $export == 1){
             
             $sql_update = "UPDATE punica_2009 SET procesado = 1";
+            parent::query($sql_update);
 
             echo "Todos los registros han sido procesados";
         }
 
         if($reset == 1){
             $sql_update = "UPDATE punica_2009 SET procesado = 1";
+            parent::query($sql_update);
+
             echo '<script language="javascript">';
             echo 'alert("Se actualizaron todos los registros de PROCESADO en 1")'; 
             echo '</script>';
