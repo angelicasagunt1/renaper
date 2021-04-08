@@ -1,16 +1,21 @@
 <?php
+ini_set("memory_limit","128M");
 include('conexionAngelica.php');
 
 class Punica extends Conexion{
     
     public function imprimir_punica(){
+    /*
+       parent::conectar();
 
-        parent::conectar();
-    
         $sql = "SELECT idpersona,nrodni,apellido,nombres,sexo,fechanac,fallecido, procesado 
                 FROM punica_2009,personas_2008 WHERE punica_2009.idpersona=personas_2008.ID_PERSONA AND procesado = 1 GROUP BY idpersona LIMIT 50000";
-        
-        $result = parent::query($sql);
+       $result = parent::query($sql);
+    */
+       $connect = mysqli_connect("10.10.99.15", "msanchez", "7A3B7F5995542953A8025CEDF6D0B0971E1A9C3F", "CDRNTEST");
+    
+       $result = mysqli_query($connect, "SELECT idpersona,nrodni,apellido,nombres,sexo,fechanac,fallecido, procesado 
+       FROM punica_2009,personas_2008 WHERE punica_2009.idpersona=personas_2008.ID_PERSONA AND procesado = 1 GROUP BY idpersona LIMIT 50000") or die(mysqli_error()); 
 
         $headers = array(
             'idpersona',
@@ -47,23 +52,24 @@ class Punica extends Conexion{
 
         if (!empty($ids_procesados)){
             $ids_procesados = preg_replace("~,$~", "", $ids_procesados);
-
+            // parent::query($sql_update);
             $sql_update = "UPDATE punica_2009 SET procesado = 2 WHERE idpersona IN(".$ids_procesados.")";
         
-            parent::query($sql_update);
+            $result = mysqli_query($connect, $sql_update) or die(mysqli_error()); 
         }
 
         if(empty($ids_procesados) && $export == 1){
             
             $sql_update = "UPDATE punica_2009 SET procesado = 1";
-            parent::query($sql_update);
+           // parent::query($sql_update);
 
-            echo "Todos los registros han sido procesados";
+            $result = mysqli_query($connect,  $sql_update) or die(mysqli_error()); 
         }
 
         if($reset == 1){
             $sql_update = "UPDATE punica_2009 SET procesado = 1";
-            parent::query($sql_update);
+            //parent::query($sql_update);
+            $result = mysqli_query($connect,  $sql_update) or die(mysqli_error()); 
 
             echo '<script language="javascript">';
             echo 'alert("Se actualizaron todos los registros de PROCESADO en 1")'; 

@@ -15,22 +15,17 @@ class Conexion {
 	# Funcion que permite conectarnos a la base de datos
 	public function conectar() {
 		# Creamos un objeto de conexion MySQLI
-		$this->mysqli = new mysqli($this->server, $this->usuario, $this->clave, $this->db);
-
-		# Validamos si existe un error al conectarnos
-		if ($this->mysqli->connect_errno) {
-			# Imprimimos el error
-			echo 'Fallo al conectarse con MySQL: ' . $this->mysqli->connect_error;
-		}
+		return mysqli_connect($this->server, $this->usuario, $this->clave, $this->db);
 
 	}
 
+/*
 	# Function que retorna un objeto de MySQL
 	public function query($consulta) {
 		#mysqli_query Realiza una consulta a la base de datos
 		return $this->mysqli->query($consulta);
 	}
-
+*/
 	# Funcion que retorna el numero de filas afectadas por una consulta sql
 	public function verificarRegistros($consulta) {
 		# mysqli_num_rows: Obtiene el número de filas de un resultado de una consulta
@@ -48,7 +43,7 @@ class Conexion {
 	public function consultarTodos($result){
 		$rows = array();
 		
-		while($row=mysqli_fetch_array($result, MYSQLI_NUM))
+		while($row=mysqli_fetch_array($result))
 		{
 			array_push($rows, $row);
 		}
